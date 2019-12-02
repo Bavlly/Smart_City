@@ -8,46 +8,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Geauthoriseerde',      90],
-          ['Niet geauthoriseerde', 10]
-        ]);
-
-        var options = {
-          title: 'Parkeergarage gebruikers',
-          pieHole: 0.4,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
-    </script>
 </head>
 <body>
-
-<h1>Windesheim Flevoland parkeergarage dashboard</h1>
+{% load staticfiles %}
 
 <div class="row" align="center">
+  <div class="col" style="background-image:url('{% static 'images/background_picture.png' %}');">
+          <img src= "{% static 'images/wf2.png' %}" align="center" hspace="20"height="150" width="250" alt="Text to display if image is not found">
+  </div>
 </div>
-    <p>Hier boven komt de banner/logo</p>
 
     <div class="row">
         <div class="col-3 text-center">
             <div class="center" style="margin-top: 30px;">
-                <h4><strong>Recent ingechekte gebruikers:</strong></h4>
+                <h3><strong>Recent aangemelde gebruikers:</strong></h3>
             </div>
         </div>
         <div class="col-9 text-center">
             <div style="margin-right: 100px;">
                           
-<ul class="list-group">
+<ul class="list-group" style="margin-top: 30px;">
   <li class="list-group-item">Naam: <b>Bavlly Fanous</b>, tijd ingecheckt: 00:00:00</li>
   <li class="list-group-item">Naam: <b>Darrel Mungra</b>, tijd: 00:00:00</li>
 </ul>
@@ -96,7 +76,7 @@
     <hr>
     <!--Grafiek-->
     
-<div id="donutchart" style="width: 900px; height: 500px;"></div>
+
 
 
 </body>
