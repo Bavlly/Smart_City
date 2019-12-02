@@ -1,13 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Welkom</title>
+    <title>Parkeergarage dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Geauthoriseerde',      90],
+          ['Niet geauthoriseerde', 10]
+        ]);
+
+        var options = {
+          title: 'Parkeergarage gebruikers',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
 </head>
 <body>
-<h1>
-    Welcome to our application
-</h1>
+
+<h1>Windesheim Flevoland parkeergarage dashboard</h1>
+
+<div class="row" align="center">
+</div>
+    <p>Hier boven komt de banner/logo</p>
+
+    <div class="row">
+        <div class="col-3 text-center">
+            <div class="center" style="margin-top: 30px;">
+                <h4><strong>Recent ingechekte gebruikers:</strong></h4>
+            </div>
+        </div>
+        <div class="col-9 text-center">
+            <div style="margin-right: 100px;">
+                          
+<ul class="list-group">
+  <li class="list-group-item">Naam: <b>Bavlly Fanous</b>, tijd ingecheckt: 00:00:00</li>
+  <li class="list-group-item">Naam: <b>Darrel Mungra</b>, tijd: 00:00:00</li>
+</ul>
+
+<br>
+
+<div class="container">
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+          Meer info...
+        </button>
+      
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Ingecheckte gebruikers</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Naam: <b>Bavlly Fanous</b>, tijd ingecheckt: 00:00:00</li>
+                    <li class="list-group-item">Naam: <b>Darrel Mungra</b>, tijd ingecheckt: 00:00:00</li>
+                    <li class="list-group-item">Naam: <b>Mark Mulder</b>, tijd ingecheckt: 00:00:00</li>
+                    <li class="list-group-item">Naam: <b>Sten Ellsworth</b>, tijd ingecheckt: 00:00:00</li>
+                </ul>
+              </div>
+              
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Sluiten</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+</div>
+    
+    <hr>
+    <!--Grafiek-->
+    
+<div id="donutchart" style="width: 900px; height: 500px;"></div>
+
 
 </body>
 </html>
