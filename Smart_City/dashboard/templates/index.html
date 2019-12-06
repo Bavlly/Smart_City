@@ -24,51 +24,48 @@
                 <h3><strong>Recent aangemelde gebruikers:</strong></h3>
             </div>
         </div>
+
         <div class="col-9 text-center">
-            <div style="margin-right: 100px;">
-                          
-<ul class="list-group" style="margin-top: 30px;">
-  <li class="list-group-item">Naam: <b>Bavlly Fanous</b>, tijd ingecheckt: 00:00:00</li>
-  <li class="list-group-item">Naam: <b>Darrel Mungra</b>, tijd: 00:00:00</li>
-</ul>
-
-<br>
-
-<div class="container">
-        <!-- Button to Open the Modal -->
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
-          Meer info...
-        </button>
-      
-        <!-- The Modal -->
-        <div class="modal" id="myModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-            
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Ingecheckte gebruikers</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              
-              <!-- Modal body -->
-              <div class="modal-body">
-                <ul class="list-group">
-                    <li class="list-group-item">Naam: <b>Bavlly Fanous</b>, tijd ingecheckt: 00:00:00</li>
-                    <li class="list-group-item">Naam: <b>Darrel Mungra</b>, tijd ingecheckt: 00:00:00</li>
-                    <li class="list-group-item">Naam: <b>Mark Mulder</b>, tijd ingecheckt: 00:00:00</li>
-                    <li class="list-group-item">Naam: <b>Sten Ellsworth</b>, tijd ingecheckt: 00:00:00</li>
+            <div style="margin-right: 100px;" align="left">
+                <ul class="list-group"  style="margin-top: 30px;">
+                    <li class="list-group-item">{% for data in data_sensor%} Naam: <b>{{data.cardID}} </b> tijd ingecheckt: <b>{{data.created_at}}</b> Geautoriseerd: <b>{{data.authorised}}</b></br>{%endfor%}</li>
                 </ul>
-              </div>
-              
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Sluiten</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                <br>
+
+<!--<div class="container">-->
+<!--        &lt;!&ndash; Button to Open the Modal &ndash;&gt;-->
+<!--        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">-->
+<!--          Meer info...-->
+<!--        </button>-->
+<!--      -->
+<!--        &lt;!&ndash; The Modal &ndash;&gt;-->
+<!--        <div class="modal" id="myModal">-->
+<!--          <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--            -->
+<!--              &lt;!&ndash; Modal Header &ndash;&gt;-->
+<!--              <div class="modal-header">-->
+<!--                <h4 class="modal-title">Ingecheckte gebruikers</h4>-->
+<!--                <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--              </div>-->
+<!--              -->
+<!--              &lt;!&ndash; Modal body &ndash;&gt;-->
+<!--              <div class="modal-body">-->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item">{% for data in data_sensor%}Naam: <b>-->
+<!--                {{data.cardID}}-->
+<!--                </b>, tijd ingecheckt: {{data.created_at}} <br>{%endfor%}</li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--              -->
+<!--              &lt;!&ndash; Modal footer &ndash;&gt;-->
+<!--              <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-warning" data-dismiss="modal">Sluiten</button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
    </div>
 </div>

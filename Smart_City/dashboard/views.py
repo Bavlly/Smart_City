@@ -7,8 +7,8 @@ from rest_framework.decorators import api_view
 
 
 def index(request): #path('', include(dashboard.urls)
-    sensor = RfidChipReader.objects.all()  # this value gets all of the data out off the database
-    return render(request, "index.html", {'sensor': sensor}) #return the request of index.html
+    data_sensor = RfidChipReader.objects.all()  # this value gets all of the data out off the database
+    return render(request, "index.html", {'data_sensor': data_sensor}) #return the request of index.html
 
 
 # Create your views here.
