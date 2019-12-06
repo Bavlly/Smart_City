@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Site title -->
     <title>Parkeergarage dashboard</title>
+
+    <!-- Bootstrap -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -9,28 +13,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
+
+<!-- Files van het mapje "Static" inladen -->
 {% load staticfiles %}
 
+<!-- Achtergrond foto en logo -->
 <div class="row" align="center">
   <div class="col" style="background-image:url('{% static 'images/background_picture.png' %}');">
-          <img src= "{% static 'images/wf2.png' %}" align="center" hspace="20"height="150" width="250" alt="Text to display if image is not found">
+          <img src= "{% static 'images/wf2.png' %}" align="center" hspace="20"height="150" width="250" alt="Logo">
   </div>
 </div>
 
-    <div class="row">
-        <div class="col-3 text-center">
-            <div class="center" style="margin-top: 30px;">
-                <h3><strong>Recent aangemelde gebruikers:</strong></h3>
-            </div>
+<!-- Eerste row voor de:
+- Titel: "Recent aangemelde gebruikers" 
+-->
+<div class="row">
+    <div class="col-6 text-center">
+        <div class="center" style="margin-top: 30px;">
+            <h4><strong>Recent aangemelde gebruikers:</strong></h4>
         </div>
+    </div>
+    <div class="col-6 text-center">
+    </div>
+</div>
 
-        <div class="col-9 text-center">
-            <div style="margin-right: 100px;" align="left">
-                <ul class="list-group"  style="margin-top: 30px;">
-                    <li class="list-group-item">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}} </b> tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
-                </ul>
-                <br>
+<!-- Tweede row voor de:
+- Het tonen van de recent aangemelde gebruikers
+- Placeholder
+-->
+<div class="row">
+    <div class="col-6 text-center">
+        <div class="center" style="margin-top: 30px;">
+            <ul class="list-group"  style="margin-top: 30px;">
+                <li class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-6 text-center">
+        <div style="margin-right: 100px;" align="left">
+            <ul class="list-group" style="margin-top: 30px;">
+                <li class="list-group-item" style="border: none"><p>Placeholder</p></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 
+hr
+-->
+<hr>
+
+<!-- Derde row voor de:
+- Eerste grafiek: 
+- Tweede grafiek:
+-->
 
 <!--<div class="container">-->
 <!--        &lt;!&ndash; Button to Open the Modal &ndash;&gt;-->
@@ -66,15 +104,7 @@
 <!--          </div>-->
 <!--        </div>-->
 <!--      </div>-->
-    </div>
-   </div>
-</div>
-    
-    <hr>
     <!--Grafiek-->
-    
-
-
 
 </body>
 </html>
