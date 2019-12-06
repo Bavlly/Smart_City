@@ -28,7 +28,7 @@
         <div class="col-9 text-center">
             <div style="margin-right: 100px;" align="left">
                 <ul class="list-group"  style="margin-top: 30px;">
-                    <li class="list-group-item">{% for data in data_sensor%} Naam: <b>{{data.cardID}} </b> tijd ingecheckt: <b>{{data.created_at}}</b> Geautoriseerd: <b>{{data.authorised}}</b></br>{%endfor%}</li>
+                    <li class="list-group-item">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}} </b> tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
                 </ul>
                 <br>
 

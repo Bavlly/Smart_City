@@ -1,14 +1,18 @@
 from django.shortcuts import render
 from .models import RfidChipReader
 from .serializer import SensorsSerializer
+from datetime import datetime, timedelta
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 
 
 def index(request): #path('', include(dashboard.urls)
-    data_sensor = RfidChipReader.objects.all()  # this value gets all of the data out off the database
-    return render(request, "index.html", {'data_sensor': data_sensor}) #return the request of index.html
+    alldata_sensor = RfidChipReader.objects.all()  # this value gets all of the data out off the database
+    curr_datetime = datetime.now()
+    curr_date = curr_datetime.date()
+    current_data_sensor = RfidChipReader.objects.filter(created_at__date=curr_date)
+    return render(request, "index.html", {'alldata_sensor': alldata_sensor, 'current_data_sensor': current_data_sensor}) #return the request of index.html
 
 
 # Create your views here.
@@ -19,9 +23,9 @@ def sensorList(request):
     return Response(serializer.data)
 
 @api_view(['GET', 'PUT'])
-def sensorDetail(request, sensor_id):
+def sensorDetail(request, pk):
     try:
-        sensor_id = RfidChipReader.objects.get(sensor_ID=sensor_id)
+        sensor_id = RfidChipReader.objects.get(pk=pk)
     except RfidChipReader.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
