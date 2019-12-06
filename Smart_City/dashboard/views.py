@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Sensors
+from .models import RfidChipReader
 from .serializer import SensorsSerializer
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,23 +7,22 @@ from rest_framework.decorators import api_view
 
 
 def index(request): #path('', include(dashboard.urls)
-    sensor = Sensors.objects.all()  # this value gets all of the data out off the database
-    empty_or_full_value = Sensors.objects.filter(sensorValue=1) # this value gets all of empty values out off the database
-    return render(request, "index.html", {'sensor': sensor, 'empty_or_full_value': empty_or_full_value}) #return the request of index.html
+    sensor = RfidChipReader.objects.all()  # this value gets all of the data out off the database
+    return render(request, "index.html", {'sensor': sensor}) #return the request of index.html
 
 
 # Create your views here.
 @api_view(['GET'])
 def sensorList(request):
-    sensor = Sensors.objects.all()
+    sensor = RfidChipReader.objects.all()
     serializer = SensorsSerializer(sensor, many=True)
     return Response(serializer.data)
 
 @api_view(['GET', 'PUT'])
 def sensorDetail(request, sensor_id):
     try:
-        sensor_id = Sensors.objects.get(sensor_ID=sensor_id)
-    except Sensors.DoesNotExist:
+        sensor_id = RfidChipReader.objects.get(sensor_ID=sensor_id)
+    except RfidChipReader.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
