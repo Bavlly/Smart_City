@@ -21,9 +21,9 @@ from dashboard import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
-    path('sensor/', views.sensorList),
-    path('sensor/<int:sensor_id>/', views.sensorDetail),
-    path('sensor/put/<int:sensor_id>/', views.sensorDetail),
-    path('sensor/post/', views.sensorPost),
+    path('RFID/', views.RFIDList),
+    path('RFID/<int:sensor_id>/', views.RFIDDetail),
+    path('RFID/put/<int:sensor_id>/', views.RFIDDetail),
+    path('RFID/post/', views.RFIDPost),
 
 ]
