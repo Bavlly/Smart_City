@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 
 
 def index(request): #path('', include(dashboard.urls)
-    alldata_sensor = RfidChipReader.objects.all()  # this value gets all of the data out off the database
+    alldata_sensor = RfidChipReader.objects.all()# this value gets all of the data out off the database
     curr_datetime = datetime.now()
     curr_date = curr_datetime.date()
     current_date = RfidChipReader.objects.dates('created_at', 'day')
@@ -20,7 +20,7 @@ def index(request): #path('', include(dashboard.urls)
         time_diff = timedelta(days=-1)
         req_date_time = curr_date + time_diff
 
-        date = RfidChipReader.objects.filter(created_at__date=req_date_time)
+        date = RfidChipReader.objects.filter(created_at__date=curr_date)
 
 
     else:
