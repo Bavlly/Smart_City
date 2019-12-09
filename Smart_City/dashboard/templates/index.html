@@ -15,9 +15,9 @@
 
     <!-- Css -->
     <style>
-        p. {
-            font-family: "Roboto";
-        }
+     p.{
+        font-family: "Roboto";
+      }
     </style>
 </head>
 
@@ -28,9 +28,9 @@
 
 <!-- Achtergrond foto en logo -->
 <div class="row" align="center">
-    <div class="col" style="background-image:url('{% static 'images/background_picture.png' %}');">
-        <img src="{% static 'images/wf2.png' %}" align="center" hspace="20" height="150" width="250" alt="Logo">
-    </div>
+  <div class="col" style="background-image:url('{% static 'images/background_picture.png' %}');">
+          <img src= "{% static 'images/wf2.png' %}" align="center" hspace="20"height="150" width="250" alt="Logo">
+  </div>
 </div>
 
 <!-- Eerste row voor de:
@@ -53,12 +53,9 @@
 <div class="row">
     <div class="col-6 text-center">
         <div class="center" style="margin-top: 30px;">
-            <ul class="list-group" style="margin-top: 30px;">
+            <ul class="list-group"  style="margin-top: 30px;">
                 {% if current_data_sensor %}
-                <li class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,
-                    Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd:
-                    <b>{{current_data.authorised}}</b></br>{%endfor%}
-                </li>
+                <li class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
                 {% else %}
                 <li class="list-group-item" style="border: none">Er zijn vandaag geen gebruikers ingecheckt</li>
                 {% endif %}
@@ -79,16 +76,14 @@
 - Tweede grafiek:
 -->
 <div style="margin-top: 75px;" align="center">
-    <form method="get" action="/">
-        <p style="font-size:20px;">Specifieke dag zoeken
+        <form method="get" action="/">
+            <p style="font-size:20px;">Specifieke dag zoeken
             <input type="date" name="date" data-date-inline-picker="true" required></p>
-        <button class="btn btn-warning text-white" type="submit"
-                style="padding: 10px 20px; font-size: 20px; border-radius: 10px; width:120px; margin-top: 30px;"><b>Zoeken</b>
-        </button>
-    </form>
-</div>
+            <button class="btn btn-warning text-white" type="submit" style="padding: 10px 20px; font-size: 20px; border-radius: 10px; width:120px; margin-top: 30px;"><b>Zoeken</b></button>
+        </form>
+    </div>
 
-<hr>
+    <hr>
 
 <!--Grafieken-->
 <div class="row">
@@ -119,15 +114,11 @@
                                     backgroundColor: [
                                         '#FFC904',
                                         '#FAA419'],
-                                    data: [{{authorised_true.count}
-                                }, {{authorised_false.count}
-                        }
-                        ],
-                        borderWidth: [1, 1]
-                        }
-                        ]
-                        }
-                        ;
+                                    data: [{{authorised_true.count}}, {{authorised_false.count}}],
+                                    borderWidth: [1, 1]
+                                }
+                            ]
+                        };
 
                         // Opties
                         var options = {
@@ -150,7 +141,9 @@
             </div>
         </div>
     </div>
-    <div class="col-6 text-center">
+
+
+        <div class="col-6 text-center">
         <div align="center">
 
             <!--Grafiek 2-->
@@ -179,22 +172,12 @@
                                     fill: true,
                                     label: 'Aantal ingecheckte personen op geselecteerde datum',
                                     backgroundColor: [
-                                        '#FFF579'],
-                                    data: [{ % if date %
-                                }{{date.count}
-                        }
-                        {%else%
-                        }
-                        0
-                        {%
-                            endif %
-                        }
-                        ],
-                        borderWidth: [1, 1]
-                        }
-                        ]
-                        }
-                        ;
+                                    '#FFF579'],
+                                    data: [{% if date %}{{date.count}}{%else%}0{%endif%}],
+                                    borderWidth: [1,1]
+                                }
+                            ]
+                        };
 
                         // Notice the rotation from the documentation.
                         var options = {
@@ -211,15 +194,11 @@
                             type: 'bar',
                             data: data,
                             options: {
-                                scales: {
+                                 scales: {
                                     yAxes: [{
                                         ticks: {
                                             beginAtZero: true,
-                                            callback: function (value) {
-                                                if (value % 1 === 0) {
-                                                    return value;
-                                                }
-                                            }
+                                            callback: function(value) {if (value % 1 === 0) {return value;}}
                                         }
                                     }]
                                 }
