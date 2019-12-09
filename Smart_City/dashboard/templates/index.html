@@ -70,41 +70,146 @@ hr
 - Tweede grafiek:
 -->
 
-<!--<div class="container">-->
-<!--        &lt;!&ndash; Button to Open the Modal &ndash;&gt;-->
-<!--        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">-->
-<!--          Meer info...-->
-<!--        </button>-->
-<!--      -->
-<!--        &lt;!&ndash; The Modal &ndash;&gt;-->
-<!--        <div class="modal" id="myModal">-->
-<!--          <div class="modal-dialog">-->
-<!--            <div class="modal-content">-->
-<!--            -->
-<!--              &lt;!&ndash; Modal Header &ndash;&gt;-->
-<!--              <div class="modal-header">-->
-<!--                <h4 class="modal-title">Ingecheckte gebruikers</h4>-->
-<!--                <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-<!--              </div>-->
-<!--              -->
-<!--              &lt;!&ndash; Modal body &ndash;&gt;-->
-<!--              <div class="modal-body">-->
-<!--                <ul class="list-group">-->
-<!--                    <li class="list-group-item">{% for data in data_sensor%}Naam: <b>-->
-<!--                {{data.cardID}}-->
-<!--                </b>, tijd ingecheckt: {{data.created_at}} <br>{%endfor%}</li>-->
-<!--                </ul>-->
-<!--              </div>-->
-<!--              -->
-<!--              &lt;!&ndash; Modal footer &ndash;&gt;-->
-<!--              <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-warning" data-dismiss="modal">Sluiten</button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-    <!--Grafiek-->
+<!--    <div class="col" style="background-image:url('{% static 'images/background_picture.png' %}');">-->
+<!--        <img src="{% static 'images/wf2.png' %}" align="center" hspace="20" height="150" width="250"-->
+<!--             alt="Text to display if image is not found">-->
+<!--    </div>-->
+<!--</div>-->
 
+<!--<div class="row">-->
+<!--    <div class="col-3 text-center">-->
+<!--        <div class="center" style="margin-top: 30px;">-->
+<!--            <h3><strong>Recent aangemelde gebruikers:</strong></h3>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-9 text-center">-->
+<!--        <div style="margin-right: 100px;" align="left">-->
+<!--            <ul class="list-group" style="margin-top: 30px;">-->
+<!--                <li class="list-group-item">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}} </b>-->
+<!--                    tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd:-->
+<!--                    <b>{{current_data.authorised}}</b></br>{%endfor%}-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <br>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<hr>-->
+<div style="margin-top: 75px;" align="center">
+        <form method="get" action="/">
+            <p style="font-size:20px;">Specifieke dag zoeken
+            <input type="date" name="date" data-date-inline-picker="true" required></p>
+            <button class="btn btn-warning text-white" type="submit" style="padding: 10px 20px; font-size: 20px; border-radius: 10px; width:120px; margin-top: 30px;"><b>Zoeken</b></button>
+        </form>
+    </div>
+    <!--Grafiek-->
+<div class="row">
+    <div class="col-6 text-center">
+        <div align="center">
+            <div id="ParkeerGrafiek1">
+                <canvas id="myChart"></canvas>
+                <script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
+                <div class="chart-container" style="position: relative; height:10vh; width:45vw">
+                    <script>
+                        var canvas = document.getElementById("myChart");
+                        var ctx = canvas.getContext('2d');
+
+                        // Global Options:
+                        Chart.defaults.global.defaultFontColor = 'black';
+                        Chart.defaults.global.defaultFontSize = 16;
+
+                        var data = {
+                            labels: ["Authorised people trying to get in", "non authorised people trying to get in"],
+                            datasets: [
+                                {
+                                    fill: true,
+                                    backgroundColor: [
+                                        'green',
+                                        'red'],
+                                    data: [{{authorised_true.count}}, {{authorised_false.count}}],
+// Notice the borderColor
+                                    borderColor: ['black', 'black'],
+                                    borderWidth: [2, 2]
+                                }
+                            ]
+                        };
+
+                        // Notice the rotation from the documentation.
+
+                        var options = {
+                            title: {
+                                display: true,
+                                text: 'how many non authorised people trying to get in?',
+                                position: 'top'
+                            },
+                            rotation: -0.7 * Math.PI
+                        };
+
+
+                        // Chart declaration:
+                        var myBarChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: data,
+                            options: options
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="col-6 text-center">
+        <div align="center">
+            <div id="ParkeerGrafiek2">
+                <canvas id="myChart2"></canvas>
+                <script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
+                <div class="chart-container" style="position: relative; height:10vh; width:45vw">
+                    <script>
+                        var canvas = document.getElementById("myChart2");
+                        var ctx = canvas.getContext('2d');
+
+                        // Global Options:
+                        Chart.defaults.global.defaultFontColor = 'black';
+                        Chart.defaults.global.defaultFontSize = 16;
+
+                        var data = {
+                            labels: ["Authorised people trying to get in"],
+                            datasets: [
+                                {
+                                    fill: true,
+                                    backgroundColor: [
+                                        'green',
+                                        'red'],
+                                    data: [{{date.count}}],
+// Notice the borderColor
+                                    borderColor: ['black', 'black'],
+                                    borderWidth: [2, 2]
+                                }
+                            ]
+                        };
+
+                        // Notice the rotation from the documentation.
+
+                        var options = {
+                            title: {
+                                display: true,
+                                text: 'how many non authorised people trying to get in?',
+                                position: 'top'
+                            },
+                            rotation: -0.7 * Math.PI
+                        };
+
+                        // Chart declaration:
+                        var myBarChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: data,
+                            options: options
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

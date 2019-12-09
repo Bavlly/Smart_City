@@ -11,8 +11,33 @@ def index(request): #path('', include(dashboard.urls)
     alldata_sensor = RfidChipReader.objects.all()  # this value gets all of the data out off the database
     curr_datetime = datetime.now()
     curr_date = curr_datetime.date()
+    current_date = RfidChipReader.objects.dates('created_at', 'day')
+    authorised_true = RfidChipReader.objects.filter(authorised=True)
+    authorised_false = RfidChipReader.objects.filter(authorised=False)
+    if not request.GET:
+        curr_datetime = datetime.now()
+        curr_date = curr_datetime.date()
+        time_diff = timedelta(days=-1)
+        req_date_time = curr_date + time_diff
+
+        date = RfidChipReader.objects.filter(created_at__date=req_date_time)
+
+
+    else:
+        input_date = request.GET['date']
+        date = RfidChipReader.objects.filter(created_at__date=input_date)
+
     current_data_sensor = RfidChipReader.objects.filter(created_at__date=curr_date)
-    return render(request, "index.html", {'alldata_sensor': alldata_sensor, 'current_data_sensor': current_data_sensor}) #return the request of index.html
+    data = {
+        'alldata_sensor': alldata_sensor,
+        'current_data_sensor': current_data_sensor,
+        "authorised_true": authorised_true,
+        'authorised_false': authorised_false,
+        "current_date": current_date,
+        "date": date,
+    }
+
+    return render(request, "index.html", data) #return the request of index.html
 
 
 # Create your views here.
@@ -25,16 +50,16 @@ def sensorList(request):
 @api_view(['GET', 'PUT'])
 def sensorDetail(request, pk):
     try:
-        sensor_id = RfidChipReader.objects.get(pk=pk)
+        pk = RfidChipReader.objects.get(pk=pk)
     except RfidChipReader.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = SensorsSerializer(sensor_id)
+        serializer = SensorsSerializer(pk)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = SensorsSerializer(sensor_id, data=request.data)
+        serializer = SensorsSerializer(pk, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
