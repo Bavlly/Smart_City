@@ -12,6 +12,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Css -->
+    <style>
+     p.{
+        font-family: "Roboto";
+      }
+    </style>
 </head>
 
 <body>
@@ -95,7 +102,6 @@ hr
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-<!--<hr>-->
 <div style="margin-top: 75px;" align="center">
         <form method="get" action="/">
             <p style="font-size:20px;">Specifieke dag zoeken
@@ -103,10 +109,15 @@ hr
             <button class="btn btn-warning text-white" type="submit" style="padding: 10px 20px; font-size: 20px; border-radius: 10px; width:120px; margin-top: 30px;"><b>Zoeken</b></button>
         </form>
     </div>
-    <!--Grafiek-->
+
+    <hr>
+
+<!--Grafieken-->
 <div class="row">
     <div class="col-6 text-center">
         <div align="center">
+
+            <!--Grafiek 1-->
             <div id="ParkeerGrafiek1">
                 <canvas id="myChart"></canvas>
                 <script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
@@ -115,41 +126,40 @@ hr
                         var canvas = document.getElementById("myChart");
                         var ctx = canvas.getContext('2d');
 
-                        // Global Options:
+                        // Globale opties:
                         Chart.defaults.global.defaultFontColor = 'black';
                         Chart.defaults.global.defaultFontSize = 16;
-
+                        
                         var data = {
-                            labels: ["Authorised people trying to get in", "non authorised people trying to get in"],
+                            // Label opties
+                            labels: ["Geautoriseerde gebruikers", "Niet geautoriseerde gebruikers"],
+
+                            // Datasets opties
                             datasets: [
                                 {
                                     fill: true,
                                     backgroundColor: [
-                                        'green',
-                                        'red'],
+                                        '#FFC904',
+                                        '#FAA419'],
                                     data: [{{authorised_true.count}}, {{authorised_false.count}}],
-// Notice the borderColor
-                                    borderColor: ['black', 'black'],
-                                    borderWidth: [2, 2]
+                                    borderWidth: [1, 1]
                                 }
                             ]
                         };
 
-                        // Notice the rotation from the documentation.
-
+                        // Opties
                         var options = {
                             title: {
                                 display: true,
-                                text: 'how many non authorised people trying to get in?',
+                                text: 'Alle geautoriseerde en niet geautoriseerde gebruikers',
                                 position: 'top'
                             },
                             rotation: -0.7 * Math.PI
                         };
 
-
-                        // Chart declaration:
+                        // Grafiek soort
                         var myBarChart = new Chart(ctx, {
-                            type: 'pie',
+                            type: 'doughnut',
                             data: data,
                             options: options
                         });
@@ -158,8 +168,12 @@ hr
             </div>
         </div>
     </div>
+
+
         <div class="col-6 text-center">
         <div align="center">
+
+            <!--Grafiek 2-->
             <div id="ParkeerGrafiek2">
                 <canvas id="myChart2"></canvas>
                 <script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
@@ -168,42 +182,53 @@ hr
                         var canvas = document.getElementById("myChart2");
                         var ctx = canvas.getContext('2d');
 
-                        // Global Options:
+                        // Globale opties
                         Chart.defaults.global.defaultFontColor = 'black';
                         Chart.defaults.global.defaultFontSize = 16;
 
                         var data = {
-                            labels: ["Authorised people trying to get in"],
+                            // Label opties
+                            labels: ["Aantal ongeautoriseerde gebruikers die geprobeerd hebben binnen te komen"],
+
+                            // Positie
+                            position: 'top',
+
+                            // Datasets opties
                             datasets: [
                                 {
                                     fill: true,
                                     backgroundColor: [
-                                        'green',
-                                        'red'],
+                                    '#FFF579'],
                                     data: [{{date.count}}],
-// Notice the borderColor
-                                    borderColor: ['black', 'black'],
-                                    borderWidth: [2, 2]
+                                    borderWidth: [1,1]
                                 }
                             ]
                         };
-
+                        
                         // Notice the rotation from the documentation.
-
                         var options = {
                             title: {
                                 display: true,
-                                text: 'how many non authorised people trying to get in?',
+                                text: 'Ongeautoriseerde gebruikers',
                                 position: 'top'
                             },
                             rotation: -0.7 * Math.PI
                         };
 
-                        // Chart declaration:
+                        // Grafiek soort:
                         var myBarChart = new Chart(ctx, {
                             type: 'bar',
                             data: data,
-                            options: options
+                            options: {
+                                 scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            callback: function(value) {if (value % 1 === 0) {return value;}}
+                                        }
+                                    }]
+                                }
+                            }
                         });
                     </script>
                 </div>
