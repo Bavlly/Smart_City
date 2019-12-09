@@ -47,8 +47,11 @@
     <div class="col-6 text-center">
         <div class="center" style="margin-top: 30px;">
             <ul class="list-group"  style="margin-top: 30px;">
+                {% if current_data_sensor %}
                 <li class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
-            </ul>
+                {% else %}
+                <li class="list-group-item" style="border: none">Er zijn vandaag geen gebruikers ingecheckt</li>
+                {% endif %}
         </div>
     </div>
     <div class="col-6 text-center">
@@ -59,43 +62,7 @@
         </div>
     </div>
 </div>
-
-<!-- 
-hr
--->
 <hr>
-
-<!-- Derde row voor de:
-- Eerste grafiek: 
-- Tweede grafiek:
--->
-
-<!--    <div class="col" style="background-image:url('{% static 'images/background_picture.png' %}');">-->
-<!--        <img src="{% static 'images/wf2.png' %}" align="center" hspace="20" height="150" width="250"-->
-<!--             alt="Text to display if image is not found">-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class="row">-->
-<!--    <div class="col-3 text-center">-->
-<!--        <div class="center" style="margin-top: 30px;">-->
-<!--            <h3><strong>Recent aangemelde gebruikers:</strong></h3>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <div class="col-9 text-center">-->
-<!--        <div style="margin-right: 100px;" align="left">-->
-<!--            <ul class="list-group" style="margin-top: 30px;">-->
-<!--                <li class="list-group-item">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}} </b>-->
-<!--                    tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd:-->
-<!--                    <b>{{current_data.authorised}}</b></br>{%endfor%}-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--            <br>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<hr>-->
 <div style="margin-top: 75px;" align="center">
         <form method="get" action="/">
             <p style="font-size:20px;">Specifieke dag zoeken
@@ -174,13 +141,14 @@ hr
 
                         var data = {
                             labels: ["Authorised people trying to get in"],
+                            labelString: 'Date',
                             datasets: [
                                 {
                                     fill: true,
                                     backgroundColor: [
                                         'green',
                                         'red'],
-                                    data: [{{date.count}}],
+                                    data: [{% if date %}{{date.count}}{% else %}0{%endif%}],
 // Notice the borderColor
                                     borderColor: ['black', 'black'],
                                     borderWidth: [2, 2]
