@@ -17,6 +17,7 @@
     <style>
      p.{
         font-family: "Roboto";
+        
       }
     </style>
 </head>
@@ -63,9 +64,6 @@
     </div>
     <div class="col-6 text-center">
         <div style="margin-right: 100px;" align="left">
-            <ul class="list-group" style="margin-top: 30px;">
-                <li class="list-group-item" style="border: none"><p>Placeholder</p></li>
-            </ul>
         </div>
     </div>
 </div>
@@ -169,7 +167,7 @@
                             datasets: [
                                 {
                                     fill: true,
-                                    label: 'Aantal ingecheckte personen op geselecteerde datum',
+                                    label: 'Aantal ingecheckte gebruikers op geselecteerde datum',
                                     backgroundColor: [
                                     '#FFF579'],
                                     data: [{% if date %}{{date.count}}{%else%}0{%endif%}],
