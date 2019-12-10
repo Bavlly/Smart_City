@@ -45,9 +45,9 @@
 -->
 <div class="row">
     <div class="col-6 text-center">
-        <div class="center" style="margin-top: 30px;">
+        <div id="rfid" class="center" style="margin-top: 30px;">
             <ul class="list-group"  style="margin-top: 30px;">
-                <li id="sensorValues" class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
+                <li id="RFIDValues" class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
             </ul>
         </div>
     </div>
@@ -112,6 +112,7 @@ hr
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous">
 </script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script>
     //check of javascript is ready to start
     $(document).ready(function() {
@@ -122,7 +123,8 @@ hr
                     if(sensors[index].sensorValue === 1) count++; //is sensorValue = 1 ++
                 }
                 let output = `${count}/${sensors.length}`; //html format
-                $("#sensorValues").html(output); //write html
+                console.log(sensors)
+                $("#RFIDValues").html(output); //write html
 
             });
         }, 10000);
