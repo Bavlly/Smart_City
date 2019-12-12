@@ -29,8 +29,8 @@
 
 <!-- Achtergrond foto en logo -->
 <div class="row" align="center">
-  <div class="col" style="background-image:url('{% static 'images/background_picture.png' %}');">
-          <img src= "{% static 'images/wf2.png' %}" align="center" hspace="20"height="150" width="250" alt="Logo">
+  <div class="col" style="background-image:url('{% static 'images/background_picture.jpeg' %}');">
+          <img src= "{% static 'images/wf2.png' %}" align="left" hspace="20"height="150" width="250" alt="Logo">
   </div>
 </div>
 
@@ -73,11 +73,11 @@
 - Eerste grafiek: 
 - Tweede grafiek:
 -->
-<div style="margin-top: 75px;" align="center">
+<div style="margin-top: 25px;" align="center">
         <form method="get" action="/">
             <p style="font-size:20px;">Specifieke dag zoeken
             <input type="date" name="date" data-date-inline-picker="true" required></p>
-            <button class="btn btn-warning text-white" type="submit" style="padding: 10px 20px; font-size: 20px; border-radius: 10px; width:120px; margin-top: 30px;"><b>Zoeken</b></button>
+            <button class="btn btn-success text-white" type="submit" style="padding: 10px 20px; font-size: 20px; border-radius: 10px; width:120px; margin-top: 30px;"><b>Zoeken</b></button>
         </form>
     </div>
 
@@ -110,8 +110,8 @@
                                 {
                                     fill: true,
                                     backgroundColor: [
-                                        '#FFC904',
-                                        '#FAA419'],
+                                        '#D3E14C',
+                                        '#A4D337'],
                                     data: [{{authorised_true.count}}, {{authorised_false.count}}],
                                     borderWidth: [1, 1]
                                 }
@@ -170,7 +170,7 @@
                                     fill: true,
                                     label: 'Aantal ingecheckte gebruikers op geselecteerde datum',
                                     backgroundColor: [
-                                    '#FFF579'],
+                                    '#D3E14C'],
                                     data: [{% if date %}{{date.count}}{%else%}0{%endif%}],
                                     borderWidth: [1,1]
                                 }
