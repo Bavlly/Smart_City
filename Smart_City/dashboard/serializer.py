@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import RfidChipReader
+from .models import RFIDChipReader
 
-class SensorsSerializer(serializers.ModelSerializer):
+class RFIDSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RfidChipReader
+        model = RFIDChipReader
         fields = '__all__'

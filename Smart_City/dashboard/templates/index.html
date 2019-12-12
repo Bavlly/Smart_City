@@ -55,13 +55,15 @@
 -->
 <div class="row">
     <div class="col-6 text-center">
-        <div class="center" style="margin-top: 30px;">
+        <div id="rfid" class="center" style="margin-top: 30px;">
             <ul class="list-group"  style="margin-top: 30px;">
                 {% if current_data_sensor %}
-                <li class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
+                <li id="RFIDValues" class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
                 {% else %}
                 <li class="list-group-item" style="border: none">Er zijn vandaag geen gebruikers ingecheckt</li>
                 {% endif %}
+                
+            </ul>
         </div>
     </div>
     <div class="col-6 text-center">
@@ -228,4 +230,29 @@
     </div>
 </div>
 </body>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script>
+    //check of javascript is ready to start
+    $(document).ready(function() {
+        setInterval(() => { // set interval each second
+            $.get("/RFID", (sensors) => { //get api /sensor
+                let count = 0; // empty_or_full_value.count
+                for(let index in sensors) { //loop
+                    if(sensors[index].sensorValue === 1) count++; //is sensorValue = 1 ++
+                }
+                const output = sensors.map(current_data => {
+                    return `<p>Naam: <b>${current_data.cardID}</b>,  Tijd ingecheckt: <b>${current_data.created_at}</b> Geautoriseerd: <b>${current_data.authorised}</b></p>`; //html format
+                }).join('')
+                console.log(sensors)
+                console.log(output)
+                $("#RFIDValues").html(output); //write html
+            });
+        }, 10000);
+    });
+</script>
 </html>

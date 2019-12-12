@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RfidChipReader
+from .models import RFIDChipReader
 
 # Register your models here.
-admin.site.register(RfidChipReader)
+admin.site.register(RFIDChipReader)
