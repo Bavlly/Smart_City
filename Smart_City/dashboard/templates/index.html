@@ -122,10 +122,12 @@ hr
                 for(let index in sensors) { //loop
                     if(sensors[index].sensorValue === 1) count++; //is sensorValue = 1 ++
                 }
-                let output = `${count}/${sensors.length}`; //html format
+                const output = sensors.map(current_data => {
+                    return `<p>Naam: <b>${current_data.cardID}</b>,  Tijd ingecheckt: <b>${current_data.created_at}</b> Geautoriseerd: <b>${current_data.authorised}</b></p>`; //html format
+                }).join('')
                 console.log(sensors)
+                console.log(output)
                 $("#RFIDValues").html(output); //write html
-
             });
         }, 10000);
     });
