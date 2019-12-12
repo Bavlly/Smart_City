@@ -24,18 +24,18 @@
 
 <body>
 
-<!-- Files van het mapje "Static" inladen -->
+<!-- Loading files from "Static" -->
 {% load staticfiles %}
 
-<!-- Achtergrond foto en logo -->
+<!-- Background picture and logo -->
 <div class="row" align="center">
   <div class="col" style="background-image:url('{% static 'images/background_picture.jpeg' %}');">
           <img src= "{% static 'images/wf2.png' %}" align="left" hspace="20"height="150" width="250" alt="Logo">
   </div>
 </div>
 
-<!-- Eerste row voor de:
-- Titel: "Recent aangemelde gebruikers" 
+<!-- First row containing:
+- Ttitle: "Recent aangemelde gebruikers" 
 -->
 <div class="row">
     <div class="col-6 text-center">
@@ -50,9 +50,8 @@
     </div>
 </div>
 
-<!-- Tweede row voor de:
-- Het tonen van de recent aangemelde gebruikers
-- Placeholder
+<!-- Second row containing:
+- showing recently logged in users.
 -->
 <div class="row">
     <div class="col-6 text-center">
@@ -75,9 +74,9 @@
 </div>
 <hr>
 
-<!-- Derde row voor de:
-- Eerste grafiek: 
-- Tweede grafiek:
+<!-- Third row containing:
+- First graph: 
+- Second graph:
 -->
 <div style="margin-top: 25px;" align="center">
         <form method="get" action="/">
@@ -88,43 +87,48 @@
     </div>
 {{data_last_week}}
     <hr>
-<!--Grafieken-->
+<!--Graphs-->
 <div class="row">
     <div class="col-6 text-center">
         <div align="center">
 
-            <!--Grafiek 1-->
+            <!--Graph 1-->
             <div id="ParkeerGrafiek1">
+                <!-- Generates a graph-->
                 <canvas id="myChart"></canvas>
                 <script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
+                <!-- Defines the style of the graph-->
                 <div class="chart-container" style="position: relative; height:10vh; width:45vw">
                     <script>
                         var canvas = document.getElementById("myChart");
                         var ctx = canvas.getContext('2d');
 
-                        // Globale opties:
+                        // Global options:
                         Chart.defaults.global.defaultFontColor = 'black';
                         Chart.defaults.global.defaultFontSize = 16;
 
                         var data = {
-                            // Label opties
+                            // Label options
                             labels: ["Geautoriseerde gebruikers", "Niet geautoriseerde gebruikers"],
 
-                            // Datasets opties
+                            // Datasets options
                             datasets: [
                                 {
+                                    // Graph type
                                     fill: true,
                                     backgroundColor: [
                                         '#D3E14C',
                                         '#A4D337'],
                                     data: [{{authorised_true.count}}, {{authorised_false.count}}],
+                                    // Gives the graph a border
                                     borderWidth: [1, 1]
                                 }
                             ]
                         };
 
-                        // Opties
+                        // Options
                         var options = {
+                            // Displays a text above the graph
                             title: {
                                 display: true,
                                 text: 'Alle geautoriseerde en niet geautoriseerde gebruikers',
@@ -133,8 +137,9 @@
                             rotation: -0.7 * Math.PI
                         };
 
-                        // Grafiek soort
+                        // Graph type
                         var myBarChart = new Chart(ctx, {
+                            // Defining that the graph is a line graph
                             type: 'doughnut',
                             data: data,
                             options: options
@@ -149,10 +154,12 @@
         <div class="col-6 text-center">
         <div align="center">
 
-            <!--Grafiek 2-->
+            <!--Graph 2-->
             <div id="ParkeerGrafiek2">
+                <!-- Generates a graph-->
                 <canvas id="myChart2"></canvas>
                 <script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
+                <!-- Defines the style of the graph-->
                 <div class="chart-container" style="position: relative; height:10vh; width:45vw">
                     <script>
                         var canvas = document.getElementById("myChart2");
@@ -172,19 +179,23 @@
                             // Datasets opties
                             datasets: [
                                 {
+                                    // Define the label  of the graph
                                     fill: true,
                                     label: 'Aantal ingecheckte gebruikers op geselecteerde datum',
+                                    // Graph type
                                     backgroundColor: [
                                     '#D3E14C'],
                                     data: [{% if date %}{{date.count}}{%else%}0{%endif%}],
+                                    // Gives the graph a border
                                     borderWidth: [1,1]
                                 }
                             ]
                         };
 
-                        // Notice the rotation from the documentation.
+                        // options
                         var options = {
                             title: {
+                                // Displays a text above the graph
                                 display: true,
                                 text: 'Ongeautoriseerde gebruikers',
                                 position: 'top'
@@ -192,15 +203,18 @@
                             rotation: -0.7 * Math.PI
                         };
 
-                        // Grafiek soort:
+                        // Graph type
                         var myBarChart = new Chart(ctx, {
+                            // Defining that the graph is a line graph
                             type: 'bar',
                             data: data,
                             options: {
                                  scales: {
                                     yAxes: [{
                                         ticks: {
+                                            // Graph starts counting on the y-ax at 0
                                             beginAtZero: true,
+                                            // Returns values
                                             callback: function(value) {if (value % 1 === 0) {return value;}}
                                         }
                                     }]
