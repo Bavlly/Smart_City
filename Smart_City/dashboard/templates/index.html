@@ -12,22 +12,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Css -->
+    <style>
+     p.{
+        font-family: "Roboto";
+        
+      }
+    </style>
 </head>
 
 <body>
 
-<!-- Files van het mapje "Static" inladen -->
+<!-- Loading files from "Static" -->
 {% load staticfiles %}
 
-<!-- Achtergrond foto en logo -->
+<!-- Background picture and logo -->
 <div class="row" align="center">
-  <div class="col" style="background-image:url('{% static 'images/background_picture.png' %}');">
-          <img src= "{% static 'images/wf2.png' %}" align="center" hspace="20"height="150" width="250" alt="Logo">
+  <div class="col" style="background-image:url('{% static 'images/background_picture.jpeg' %}');">
+          <img src= "{% static 'images/wf2.png' %}" align="left" hspace="20"height="150" width="250" alt="Logo">
   </div>
 </div>
 
-<!-- Eerste row voor de:
-- Titel: "Recent aangemelde gebruikers" 
+<!-- First row containing:
+- Ttitle: "Recent aangemelde gebruikers" 
 -->
 <div class="row">
     <div class="col-6 text-center">
@@ -36,75 +44,188 @@
         </div>
     </div>
     <div class="col-6 text-center">
+        <div class="center" style="margin-top: 30px;" align="center">
+            <h4><strong>Aantal gebruikers van parkeergarage:</strong></h4>
+        </div>
     </div>
 </div>
 
-<!-- Tweede row voor de:
-- Het tonen van de recent aangemelde gebruikers
-- Placeholder
+<!-- Second row containing:
+- showing recently logged in users.
 -->
 <div class="row">
     <div class="col-6 text-center">
         <div class="center" style="margin-top: 30px;">
             <ul class="list-group"  style="margin-top: 30px;">
+                {% if current_data_sensor %}
                 <li class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
-            </ul>
+                {% else %}
+                <li class="list-group-item" style="border: none">Er zijn vandaag geen gebruikers ingecheckt</li>
+                {% endif %}
         </div>
     </div>
     <div class="col-6 text-center">
-        <div style="margin-right: 100px;" align="left">
-            <ul class="list-group" style="margin-top: 30px;">
-                <li class="list-group-item" style="border: none"><p>Placeholder</p></li>
-            </ul>
+        <div style="margin-right: 100px;" align="center">
+            <br>
+           <h1><b>{{alldata_sensor.count}}</b></h1>
+        </div>
         </div>
     </div>
 </div>
-
-<!-- 
-hr
--->
 <hr>
 
-<!-- Derde row voor de:
-- Eerste grafiek: 
-- Tweede grafiek:
+<!-- Third row containing:
+- First graph: 
+- Second graph:
 -->
+<div style="margin-top: 25px;" align="center">
+        <form method="get" action="/">
+            <p style="font-size:20px;">Specifieke dag zoeken
+            <input type="date" name="date" data-date-inline-picker="true" required></p>
+            <button class="btn btn-success text-white" type="submit" style="padding: 10px 20px; font-size: 20px; border-radius: 10px; width:120px; margin-top: 30px;"><b>Zoeken</b></button>
+        </form>
+    </div>
+{{data_last_week}}
+    <hr>
+<!--Graphs-->
+<div class="row">
+    <div class="col-6 text-center">
+        <div align="center">
 
-<!--<div class="container">-->
-<!--        &lt;!&ndash; Button to Open the Modal &ndash;&gt;-->
-<!--        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">-->
-<!--          Meer info...-->
-<!--        </button>-->
-<!--      -->
-<!--        &lt;!&ndash; The Modal &ndash;&gt;-->
-<!--        <div class="modal" id="myModal">-->
-<!--          <div class="modal-dialog">-->
-<!--            <div class="modal-content">-->
-<!--            -->
-<!--              &lt;!&ndash; Modal Header &ndash;&gt;-->
-<!--              <div class="modal-header">-->
-<!--                <h4 class="modal-title">Ingecheckte gebruikers</h4>-->
-<!--                <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-<!--              </div>-->
-<!--              -->
-<!--              &lt;!&ndash; Modal body &ndash;&gt;-->
-<!--              <div class="modal-body">-->
-<!--                <ul class="list-group">-->
-<!--                    <li class="list-group-item">{% for data in data_sensor%}Naam: <b>-->
-<!--                {{data.cardID}}-->
-<!--                </b>, tijd ingecheckt: {{data.created_at}} <br>{%endfor%}</li>-->
-<!--                </ul>-->
-<!--              </div>-->
-<!--              -->
-<!--              &lt;!&ndash; Modal footer &ndash;&gt;-->
-<!--              <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-warning" data-dismiss="modal">Sluiten</button>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-    <!--Grafiek-->
+            <!--Graph 1-->
+            <div id="ParkeerGrafiek1">
+                <!-- Generates a graph-->
+                <canvas id="myChart"></canvas>
+                <script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
+                <!-- Defines the style of the graph-->
+                <div class="chart-container" style="position: relative; height:10vh; width:45vw">
+                    <script>
+                        var canvas = document.getElementById("myChart");
+                        var ctx = canvas.getContext('2d');
 
+                        // Global options:
+                        Chart.defaults.global.defaultFontColor = 'black';
+                        Chart.defaults.global.defaultFontSize = 16;
+
+                        var data = {
+                            // Label options
+                            labels: ["Geautoriseerde gebruikers", "Niet geautoriseerde gebruikers"],
+
+                            // Datasets options
+                            datasets: [
+                                {
+                                    // Graph type
+                                    fill: true,
+                                    backgroundColor: [
+                                        '#D3E14C',
+                                        '#A4D337'],
+                                    data: [{{authorised_true.count}}, {{authorised_false.count}}],
+                                    // Gives the graph a border
+                                    borderWidth: [1, 1]
+                                }
+                            ]
+                        };
+
+                        // Options
+                        var options = {
+                            // Displays a text above the graph
+                            title: {
+                                display: true,
+                                text: 'Alle geautoriseerde en niet geautoriseerde gebruikers',
+                                position: 'top'
+                            },
+                            rotation: -0.7 * Math.PI
+                        };
+
+                        // Graph type
+                        var myBarChart = new Chart(ctx, {
+                            // Defining that the graph is a line graph
+                            type: 'doughnut',
+                            data: data,
+                            options: options
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="col-6 text-center">
+        <div align="center">
+
+            <!--Graph 2-->
+            <div id="ParkeerGrafiek2">
+                <!-- Generates a graph-->
+                <canvas id="myChart2"></canvas>
+                <script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
+                <!-- Defines the style of the graph-->
+                <div class="chart-container" style="position: relative; height:10vh; width:45vw">
+                    <script>
+                        var canvas = document.getElementById("myChart2");
+                        var ctx = canvas.getContext('2d');
+
+                        // Globale opties
+                        Chart.defaults.global.defaultFontColor = 'black';
+                        Chart.defaults.global.defaultFontSize = 16;
+
+                        var data = {
+                            // Label opties
+                            labels: ["Aantal ingecheckte gebruikers op geselecteerde datum"],
+
+                            // Positie
+                            position: 'top',
+
+                            // Datasets opties
+                            datasets: [
+                                {
+                                    // Define the label  of the graph
+                                    fill: true,
+                                    label: 'Aantal ingecheckte gebruikers op geselecteerde datum',
+                                    // Graph type
+                                    backgroundColor: [
+                                    '#D3E14C'],
+                                    data: [{% if date %}{{date.count}}{%else%}0{%endif%}],
+                                    // Gives the graph a border
+                                    borderWidth: [1,1]
+                                }
+                            ]
+                        };
+
+                        // options
+                        var options = {
+                            title: {
+                                // Displays a text above the graph
+                                display: true,
+                                text: 'Ongeautoriseerde gebruikers',
+                                position: 'top'
+                            },
+                            rotation: -0.7 * Math.PI
+                        };
+
+                        // Graph type
+                        var myBarChart = new Chart(ctx, {
+                            // Defining that the graph is a line graph
+                            type: 'bar',
+                            data: data,
+                            options: {
+                                 scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            // Graph starts counting on the y-ax at 0
+                                            beginAtZero: true,
+                                            // Returns values
+                                            callback: function(value) {if (value % 1 === 0) {return value;}}
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

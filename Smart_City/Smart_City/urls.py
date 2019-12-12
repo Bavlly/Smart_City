@@ -22,8 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
     path('sensor/', views.sensorList),
-    path('sensor/<int:sensor_id>/', views.sensorDetail),
-    path('sensor/put/<int:sensor_id>/', views.sensorDetail),
+    path('sensor/<int:pk>/', views.sensorDetail),
+    path('sensor/put/<int:pk>/', views.sensorDetail),
     path('sensor/post/', views.sensorPost),
 
 ]
