@@ -56,14 +56,7 @@
 <div class="row">
     <div class="col-6 text-center">
         <div id="rfid" class="center" style="margin-top: 30px;">
-            <ul class="list-group"  style="margin-top: 30px;">
-                {% if current_data_sensor %}
-                <li id="RFIDValues" class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
-                {% else %}
-                <li class="list-group-item" style="border: none">Er zijn vandaag geen gebruikers ingecheckt</li>
-                {% endif %}
-                
-            </ul>
+            <li id="RFIDValues" class="list-group-item" style="border: none">{% for current_data in current_data_sensor%} Naam: <b>{{current_data.cardID}}</b>,  Tijd ingecheckt: <b>{{current_data.created_at}}</b> Geautoriseerd: <b>{{current_data.authorised}}</b></br>{%endfor%}</li>
         </div>
     </div>
     <div class="col-6 text-center">
