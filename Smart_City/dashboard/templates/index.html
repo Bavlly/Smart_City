@@ -80,7 +80,6 @@
             <button class="btn btn-success text-white" type="submit" style="padding: 10px 20px; font-size: 20px; border-radius: 10px; width:120px; margin-top: 30px;"><b>Zoeken</b></button>
         </form>
     </div>
-{{data_last_week}}
     <hr>
 <!--Graphs-->
 <div class="row">
@@ -114,6 +113,9 @@
                                     backgroundColor: [
                                         '#D3E14C',
                                         '#A4D337'],
+                                    // - underneath is the value of how many authorised people are in the garage
+                                    // - how much unauthorised people tried checkin
+                                    // - overal value, everything in the database.
                                     data: [{{authorised_true.count}}, {{authorised_false.count}}],
                                     // Gives the graph a border
                                     borderWidth: [1, 1]
@@ -160,18 +162,18 @@
                         var canvas = document.getElementById("myChart2");
                         var ctx = canvas.getContext('2d');
 
-                        // Globale opties
+                        // Global options
                         Chart.defaults.global.defaultFontColor = 'black';
                         Chart.defaults.global.defaultFontSize = 16;
 
                         var data = {
-                            // Label opties
+                            // Label option
                             labels: ["Aantal ingecheckte gebruikers op geselecteerde datum"],
 
-                            // Positie
+                            // Position
                             position: 'top',
 
-                            // Datasets opties
+                            // Datasets options
                             datasets: [
                                 {
                                     // Define the label  of the graph

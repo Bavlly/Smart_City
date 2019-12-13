@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 
+
 # Create your models here.
 class RFIDChipReader(models.Model):
     cardID = models.CharField(max_length=255)

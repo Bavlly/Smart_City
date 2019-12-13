@@ -21,8 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
     path('RFID/', views.RFIDList),
-    path('RFID/<int:sensor_id>/', views.RFIDDetail),
-    path('RFID/put/<int:sensor_id>/', views.RFIDDetail),
+    path('RFID/<int:pk>/', views.RFIDDetail),
+    path('RFID/put/<int:pk>/', views.RFIDDetail),
     path('RFID/post/', views.RFIDPost),
 
 ]

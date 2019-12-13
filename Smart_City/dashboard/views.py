@@ -17,8 +17,6 @@ def index(request): #path('', include(dashboard.urls)
     if not request.GET:
         curr_datetime = datetime.now()
         curr_date = curr_datetime.date()
-        time_diff = timedelta(days=-1)
-        req_date_time = curr_date + time_diff
 
         date = RFIDChipReader.objects.filter(created_at__date=curr_date)
 
@@ -42,7 +40,7 @@ def index(request): #path('', include(dashboard.urls)
     
 # Create your views here.
 @api_view(['GET'])
-def RFIDList(request):
+def RFIDList():
     sensor = RFIDChipReader.objects.all()
     serializer = RFIDSerializer(sensor, many=True)
     return Response(serializer.data)
