@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from .models import RFIDChipReader
-from .serializer import RFIDSerializer
 from datetime import datetime, timedelta
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from .serializer import RFIDSerializer
+from .models import RFIDChipReader
 
 
 def index(request): #path('', include(dashboard.urls)
